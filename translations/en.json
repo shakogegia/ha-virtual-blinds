@@ -1,0 +1,23 @@
+{
+	"config": {
+		"step": {
+			"user": {
+				"title": "Virtual Blinds",
+				"description": "Configure your virtual blinds",
+				"data": {
+					"name": "Name",
+					"up_button": "Up Button Entity",
+					"down_button": "Down Button Entity",
+					"stop_button": "Stop Button Entity",
+					"up_travel_time": "Up Travel Time (seconds)",
+					"down_travel_time": "Down Travel Time (seconds)"
+				}
+			}
+		},
+		"error": {},
+		"abort": {},
+		"create_entry": {
+			"default": "Blinds added successfully."
+		}
+	}
+}

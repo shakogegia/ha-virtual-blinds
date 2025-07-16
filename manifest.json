@@ -1,0 +1,13 @@
+{
+  "codeowners": [
+    "@shakgoegia"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/user/my_component/",
+  "domain": "virtual_blinds",
+  "iot_class": "cloud_push",
+  "name": "Virtual Blinds",
+  "requirements": [],
+  "version": "1.0.0"
+}

@@ -1,0 +1,1 @@
+DOMAIN = "virtual_blinds"
