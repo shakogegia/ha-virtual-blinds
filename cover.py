@@ -1,6 +1,7 @@
 from homeassistant.components.cover import (
     CoverEntity,
     CoverEntityFeature,
+    CoverDeviceClass,
 )
 from homeassistant.helpers.entity import Entity
 import asyncio
@@ -45,6 +46,7 @@ class VirtualBlind(CoverEntity):
         self._unique_id = unique_id
         self._position = 0  # 0 = closed, 100 = open
         self._is_moving = False
+        self._direction = None  # Track movement direction: "up", "down", or None
 
     @property
     def name(self):
@@ -63,6 +65,14 @@ class VirtualBlind(CoverEntity):
         return self._position == 0
 
     @property
+    def is_closing(self):
+        return self._is_moving and self._direction == "down"
+
+    @property
+    def is_opening(self):
+        return self._is_moving and self._direction == "up"
+
+    @property
     def supported_features(self):
         return (
             CoverEntityFeature.OPEN
@@ -73,7 +83,7 @@ class VirtualBlind(CoverEntity):
 
     @property
     def device_class(self):
-        return "blind"
+        return CoverDeviceClass.BLIND
 
     @property
     def device_info(self):
@@ -94,6 +104,7 @@ class VirtualBlind(CoverEntity):
         if self._stop_button and self._is_moving:
             await self._press_button(self._stop_button)
         self._is_moving = False
+        self._direction = None
         self.async_write_ha_state()
 
     async def async_set_cover_position(self, **kwargs):
@@ -115,6 +126,7 @@ class VirtualBlind(CoverEntity):
         await self._press_button(button)
 
         self._is_moving = True
+        self._direction = direction
         self.async_write_ha_state()
 
         await asyncio.sleep(time_to_move)
@@ -126,6 +138,7 @@ class VirtualBlind(CoverEntity):
 
         self._position = target_pos
         self._is_moving = False
+        self._direction = None
         self.async_write_ha_state()
 
     async def _press_button(self, entity_id):
