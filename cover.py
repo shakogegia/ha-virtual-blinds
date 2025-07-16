@@ -25,6 +25,10 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         up_travel_time, down_travel_time, unique_id
     )
     
+    # Store the blind entity reference for access by button
+    hass.data.setdefault(DOMAIN, {})
+    hass.data[DOMAIN][f"{unique_id}_cover"] = blind
+    
     # Add the entity
     async_add_entities([blind], update_before_add=True)
 

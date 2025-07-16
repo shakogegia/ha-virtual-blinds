@@ -2,7 +2,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from .const import DOMAIN
 
-PLATFORMS = ["cover"]
+PLATFORMS = ["cover", "button"]
 
 async def async_setup(hass: HomeAssistant, config: dict):
     """Set up via YAML (not used)."""
